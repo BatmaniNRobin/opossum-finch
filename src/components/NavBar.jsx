@@ -1,9 +1,19 @@
 import { useState,useEffect } from "react";
+import NavLink from "react-router-dom";
 
-export const NavBar = () => {
+const NavBar = (route) => {
+
+  const navStyles =  ({ isActive }) =>
+  isActive
+    ? {
+        color: '#fff',
+        background: '#7600dc',
+      }
+    : { color: '#545e6f', background: '#f0f0f0' }
+
   return (
-    <div>
-      
-    </div>
+    <NavLink to={route} style={navStyles} />
   )
 }
+
+export default NavBar;

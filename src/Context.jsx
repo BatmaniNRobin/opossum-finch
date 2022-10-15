@@ -6,8 +6,8 @@ export const Context = createContext()
 
 export const ContextProvider = (props) => {
   return (
-    <ContextProvider value={{}}>
+    <Context.Provider value={{}}>
       {props.children}
-    </ContextProvider>
+    </Context.Provider>
   )
 }
