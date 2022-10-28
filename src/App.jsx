@@ -1,56 +1,63 @@
-import './App.css';
+import "./App.css";
 
-import { ContextProvider } from './Context';
-import {BrowserRouter, Route, Routes, NavLink} from "react-router-dom";
+import { ContextProvider } from "./Context";
+import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 
 import { DashBoardPage } from "./pages/DashBoardPage";
 import { BadgeDetailPage } from "./pages/BadgeDetailPage";
 import { BadgeCreationPage } from "./pages/BadgeCreationPage";
+import SignInPage from "./pages/SignInPage";
 
-// Import the functions you need from the SDKs you need
-// import 'firebase/auth';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-// import {useAuthState} from 'react-firebase-hooks';
-// import {useCollectionData} from 'react-firebase-hooks/firestore';
-
-import fireBaseAPI from './api/fireBaseAPI';
-
-// Initialize Firebase
-const app = initializeApp(fireBaseAPI);
-const analytics = getAnalytics(app);
+// const auth = getAuth();
+// const isLoggedIn = (onAuthStateChanged(auth, (user) => {
+//   console.log(user)
+// }) ? true : false)
+// // const isLoggedIn = (auth.user ? true : false);
+// // console.log(auth.currentUser);
 
 export default function App() {
-  
-  const navStyles =  ({ isActive }) =>
+  const navStyles = ({ isActive }) =>
     isActive
       ? {
-          color: '#fff',
-          background: '#7600dc',
+          color: "#fff",
+          background: "#7600dc",
         }
-      : { color: '#545e6f', background: '#f0f0f0' }
+      : { color: "#545e6f", background: "#f0f0f0" };
 
   return (
-    <div>
-      <ContextProvider>
-        <BrowserRouter>
-          <div className="container">
-            <NavLink to={"/"} style={navStyles}>
-              Home
-            </NavLink>
-            <NavLink to={"/badgeCreation"} style={navStyles}>
-              Badge Creation
-            </NavLink>
-          </div>
-          <Routes>
-            <Route path="/" element={<BadgeCreationPage />} /> {/* fixme change this back to DashBoardPage */}
-            <Route path="/detail/:badge" element={<BadgeDetailPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ContextProvider>
-    </div>
+    <section>
+      {/* {auth ? ( */}
+        <div>
+          <ContextProvider>
+            <BrowserRouter>
+              <div className="container">
+                {/* {
+                  // isLoggedIn &&
+                  <NavLink to={"/dashboard"} style={navStyles}>
+                    Home
+                  </NavLink>
+                }
+                {
+                  // isLoggedIn &&
+                  <NavLink to={"/badgeCreation"} style={navStyles}>
+                    Badge Creation
+                  </NavLink>
+                } */}
+              </div>
+              <Routes>
+                <Route path="/" element={<SignInPage />} />
+                <Route path="/create" element={<BadgeCreationPage />} />
+                <Route path="/dashboard" element={<DashBoardPage />} />
+                <Route path="/detail/:badge" element={<BadgeDetailPage />} />
+              </Routes>
+            </BrowserRouter>
+          </ContextProvider>
+        </div>
+      {/* ) : (
+        <SignInPage />
+      )} */}
+    </section>
   );
 }

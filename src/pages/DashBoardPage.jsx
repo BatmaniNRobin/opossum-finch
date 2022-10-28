@@ -4,6 +4,7 @@ import DashBoard from "../components/DashBoard";
 export const DashBoardPage = () => {
   return (
     <div className="container">
+      DashBoard
       <DashBoard/>
     </div>
   )
