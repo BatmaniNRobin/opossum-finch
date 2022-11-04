@@ -22,8 +22,6 @@ const SignInPage = () => {
   return (
     <div className="wrapper">
       <div className="form">
-        <div className="">
-          <div className="">
             <div>
               <img
                 className=""
@@ -38,20 +36,18 @@ const SignInPage = () => {
               </p>
             </div>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mb-3"
               onClick={signInWithGoogle}
             >
               Login with Google
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mb-3"
               onClick={signInWithApple}
             >
               Login with Apple
             </button>
           </div>
-        </div>
-      </div>
       <img
         className="right-img"
         src="../src/imgs/B9A6A83A-0F0F-4427-9597-D5F1DAE14CFF_Original.jpg"
