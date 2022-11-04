@@ -24,3 +24,6 @@ yarn-error.log*
 
 # firebase
 api
+
+# bootstrap
+/dist/bootstrap*

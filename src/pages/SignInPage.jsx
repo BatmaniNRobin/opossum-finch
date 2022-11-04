@@ -1,22 +1,15 @@
 import { useState, useEffect } from "react";
 import {
   signInWithGoogle,
-  logInWithEmailAndPassword,
-  registerEmailandPassword,
-  sendPasswordReset,
+  signInWithApple,
   logout,
   auth,
 } from "../components/SignIn";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { Link, useNavigate } from "react-router-dom";
-
 const SignInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) {
@@ -27,44 +20,42 @@ const SignInPage = () => {
   }, [user, loading]);
 
   return (
-    <div>
-      <h1 className="logo">Tapped</h1>
-      <div className="login">
-        <div className="login__container">
-          <input
-            type="text"
-            className="login__textBox"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail Address"
-          />
-          <input
-            type="password"
-            className="login__textBox"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-          <button
-            className="login__btn"
-            onClick={() => logInWithEmailAndPassword(email, password)}
-          >
-            Login
-          </button>
-          <button
-            className="login__btn login__google"
-            onClick={signInWithGoogle}
-          >
-            Login with Google
-          </button>
-          <div>
-            <Link to="/reset">Forgot Password</Link>
-          </div>
-          <div>
-            Don't have an account? <Link to="/register">Register</Link> now.
+    <div className="wrapper">
+      <div className="form">
+        <div className="">
+          <div className="">
+            <div>
+              <img
+                className=""
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt="Your Company"
+              />
+              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                Welcome Back
+              </h2>
+              <p className="mt-2 text-center text-sm text-gray-600">
+                Please Sign-In Below
+              </p>
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={signInWithGoogle}
+            >
+              Login with Google
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={signInWithApple}
+            >
+              Login with Apple
+            </button>
           </div>
         </div>
       </div>
+      <img
+        className="right-img"
+        src="../src/imgs/B9A6A83A-0F0F-4427-9597-D5F1DAE14CFF_Original.jpg"
+      />
     </div>
   );
 };

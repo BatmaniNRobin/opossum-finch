@@ -6,10 +6,8 @@ import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   signOut,
+  OAuthProvider,
 } from "firebase/auth";
 
 import {
@@ -31,6 +29,7 @@ const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
 const googleProvider = new GoogleAuthProvider();
+const appleProvider = new OAuthProvider("apple.com");
 
 const signInWithGoogle = async () => {
   try {
@@ -52,38 +51,23 @@ const signInWithGoogle = async () => {
   }
 };
 
-const logInWithEmailAndPassword = async (email, password) => {
+const signInWithApple = async () => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    console.log(error);
-    alert(error.message);
-  }
-};
+    const result = await signInWithPopup(auth, appleProvider);
+    const user = result.user;
 
-const registerEmailandPassword = async (name, email, password) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
-  } catch (error) {
-    console.log(error);
-    alert(error.message);
-  }
-};
+    // Apple credential
+    const credential = OAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+    const idToken = credential.idToken;
 
-const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    alert(error.message);
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The credential that was used.
+    const credential = OAuthProvider.credentialFromError(error);
   }
 };
 
@@ -93,9 +77,7 @@ const logout = () => {
 
 export {
   signInWithGoogle,
-  logInWithEmailAndPassword,
-  registerEmailandPassword,
-  sendPasswordReset,
+  signInWithApple,
   logout,
   auth,
 };

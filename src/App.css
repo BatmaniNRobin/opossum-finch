@@ -39,6 +39,31 @@ main {
   margin-top: 7px;
 }
 
+body {
+  padding: 0;
+  margin: 0;
+}
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.form {
+  padding: 50px;
+  box-sizing: border-box;
+  
+}
+
+.form, .right-img {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.right-img {
+  object-fit: cover;
+  object-position: right;
+}
+
 /* Register */
 .register {
   height: 100vh;
